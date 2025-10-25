@@ -9,8 +9,8 @@ The entire workflow is automated — from infrastructure creation to app deploym
 
  📸 Screenshots
 
-**✅ Jenkins Pipeline Success**
-[Jenkins Success](https://github.com/shivankiB/DevOps_Assignment/blob/ITA710/ss/s1.png)
+### ✅ Jenkins Pipeline Success
+![Jenkins Success](https://github.com/shivankiB/DevOps_Assignment/blob/ITA710/ss/s1.png)
 
 ### 🐳 Docker Swarm Services
 [Docker Services](https://github.com/shivankiB/DevOps_Assignment/blob/ITA710/ss/s2.png)

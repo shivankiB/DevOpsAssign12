@@ -1,1 +1,14 @@
+# Terraform
 .terraform/
+*.tfstate
+*.tfstate.backup
+
+# Python / Django
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+
+# System
+.DS_Store
+Thumbs.db

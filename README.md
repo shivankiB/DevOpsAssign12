@@ -13,7 +13,7 @@ The entire workflow is automated — from infrastructure creation to app deploym
 ![Jenkins Success](https://github.com/shivankiB/DevOps_Assignment/blob/ITA710/ss/s1.png)
 
 ### 🐳 Docker Swarm Services
-[Docker Services](https://github.com/shivankiB/DevOps_Assignment/blob/ITA710/ss/s2.png)
+![Docker Services](https://github.com/shivankiB/DevOps_Assignment/blob/ITA710/ss/s2.png)
 
 ### 🌐 Django Web App UI
-[Django App](https://github.com/shivankiB/DevOps_Assignment/blob/ITA710/ss/s3.png)
+![Django App](https://github.com/shivankiB/DevOps_Assignment/blob/ITA710/ss/s3.png)

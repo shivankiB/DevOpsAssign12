@@ -8,6 +8,7 @@ pipeline {
     stages {
         stage('Run Bootstrap Script') {
             steps {
+                sh 'chmod +x bootstrap.sh'
                 sh './bootstrap.sh'
             }
         }
@@ -19,3 +20,4 @@ pipeline {
         }
     }
 }
+

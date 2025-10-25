@@ -1,0 +1,69 @@
+---
+- name: Install Docker and Docker Compose on all nodes
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update apt and install packages
+      apt:
+        update_cache: yes
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Add Docker GPG key
+      become: yes
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+
+    - name: Enable and start Docker
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+- name: Initialize Docker Swarm on Manager
+  hosts: manager
+  become: yes
+  tasks:
+    - name: Initialize Swarm
+      shell: docker swarm init --advertise-addr {{ ansible_host }}
+      register: swarm_init
+      failed_when: false
+
+    - name: Get join token for workers
+      shell: docker swarm join-token worker -q
+      register: worker_token
+
+    - set_fact:
+        swarm_worker_token: "{{ worker_token.stdout }}"
+        swarm_manager_ip: "{{ ansible_host }}"
+
+- name: Join workers to the Swarm
+  hosts: workers
+  become: yes
+  vars:
+    manager_ip: "{{ hostvars['52.2.225.52']['swarm_manager_ip'] }}"
+    worker_token: "{{ hostvars['52.2.225.52']['swarm_worker_token'] }}"
+  tasks:
+    - name: Join worker to swarm
+      shell: docker swarm join --token {{ worker_token }} {{ manager_ip }}:2377
+      ignore_errors: yes
